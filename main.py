@@ -12,12 +12,12 @@ app.json.sort_keys = False
 
 
 #เพิ่มส่วน Dos Protection#
-limeiter = Limiter(
+limiter = Limiter(
     key_func=get_remote_address,
     app=app,
     default_limits=[],
     storage_uri="memory://",
-    headers_enableed=True
+    headers_enabled=True
 )
 #สิ้นสุดส่วนที่เพิ่ม#
 
