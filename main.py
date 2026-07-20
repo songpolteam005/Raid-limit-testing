@@ -1,3 +1,4 @@
+from flask import Flask, jsonify
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import hashlib
@@ -10,8 +11,6 @@ app = Flask(__name__)
 # แสดง JSON ตามลำดับที่เขียนไว้ใน Dictionary
 app.json.sort_keys = False
 
-
-#เพิ่มส่วน Dos Protection#
 limiter = Limiter(
     key_func=get_remote_address,
     app=app,
@@ -19,9 +18,8 @@ limiter = Limiter(
     storage_uri="memory://",
     headers_enabled=True
 )
-#สิ้นสุดส่วนที่เพิ่ม#
 
-WORK_FACTOR = 2000 ##ยิ่งเยอะยิง่ช้าแต่ปลอดภัย##
+WORK_FACTOR = 2000 ##---------##
 PASSWORD_LENGTH = 10
 SALT_SIZE_BYTES = 16
 
@@ -53,12 +51,7 @@ def home():
 
 
 @app.route("/login-check")
-
 @limiter.limit("5 per second")
-
-#ป้องกันการส่งคำขอต่อเนื่องเป็นเวลา
-#@limiter.limit("10 per second")
-
 def login_check():
     start_time = time.perf_counter()
 
